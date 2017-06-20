@@ -19,9 +19,13 @@ public class Queen implements Pieces {
 		return this.pieceName;
 	}
 
-	@Override
+	// Queen has the powers of the Rook and the Bishop
 	public boolean checkMoveforCorrectness(int firstPosition, int thirdPosition) {
-		// TODO Auto-generated method stub
+		
+		
+		
+		
+
 		return false;
 	}
 
