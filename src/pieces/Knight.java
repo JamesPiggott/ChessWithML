@@ -59,7 +59,6 @@ public class Knight implements Pieces {
 				return false;
 			}
 		}
-
 		
 		if (firstPosition == 56 && thirdPosition == firstPosition - 1) {
 			return false;
