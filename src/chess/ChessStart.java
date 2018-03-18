@@ -1,5 +1,7 @@
 package chess;
 
+import gui.ChessGUI;
+
 /**
  * This class will start the game.
  * @author James Piggott
@@ -8,12 +10,9 @@ package chess;
 public class ChessStart {
 	public static void main(String[] args) {
 		
-		int result = 19 / 8;
-		
-		System.out.println("Result is: " + result);
-		
-		
-        	Game game = new Game();
-        	game.start();
+		ChessGUI gui = new ChessGUI();
+				
+//    	Game game = new Game();
+//    	game.start();
     }
 }
