@@ -4,7 +4,7 @@ import gui.ChessGUI;
 
 /**
  * This class will start the game.
- * @author James Piggott
+ * @author James Piggott - November 18th 2018
  *
  */
 public class ChessStart {
