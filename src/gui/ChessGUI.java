@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -53,9 +55,15 @@ public class ChessGUI extends JFrame implements ActionListener {
        	p3.setLayout(new GridLayout(8,8));
 		Dimension d = new Dimension(65, 65);
        	for (int i = 0; i <= 63; i = i+1) {
-			( (JButton) p3.add(new JButton(""+i))).addActionListener(this);
+       		JButton button = new JButton();
+       		button.addActionListener(this);
+       		Color color = new Color(255);
+       		button.setBackground(color);
+       		p3.add(button);
+       		
+//			( (JButton) p3.add(new JButton(""+i))).addActionListener(this);
 			p3.getComponent(i).setPreferredSize(d);
-			p3.getComponent(i).setEnabled(false);
+			p3.getComponent(i).setEnabled(true);
 		}
        	p1.add(p3, BorderLayout.CENTER);
        	
@@ -70,8 +78,16 @@ public class ChessGUI extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		JButton button = (JButton) arg0.getSource();	
 		
+		if (button.getBackground().getBlue() == 0) {
+	   		Color color = new Color(255);
+			((Component) arg0.getSource()).setBackground(color);
+		} else {
+	   		Color color = new Color(0);
+			((Component) arg0.getSource()).setBackground(color);
+		}
+				
 	}
 
 }
