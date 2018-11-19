@@ -96,6 +96,10 @@ public class Game {
 		this.board = new Chessboard();
 	}
 	
+	public Chessboard getBoard() {
+		return this.board;
+	}
+	
 	private void playGame() {
 		System.out.println("The first move is for player " + player1.name + ". Who will play for White");
 		this.nextPlayer = player1;

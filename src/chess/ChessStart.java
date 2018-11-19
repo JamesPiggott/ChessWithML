@@ -9,10 +9,11 @@ import gui.ChessGUI;
  */
 public class ChessStart {
 	public static void main(String[] args) {
-		
-		ChessGUI gui = new ChessGUI();
+			
 				
-//    	Game game = new Game();
-//    	game.start();
+    	Game game = new Game();
+    	game.start();
+    	ChessGUI gui = new ChessGUI(game.getBoard());
+    	
     }
 }
