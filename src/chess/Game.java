@@ -23,9 +23,7 @@ public class Game {
     }
 
 	public void start() {
-		
-        System.out.println("Welcome to The Island, a chess implementation coded to test Artificial Intelligence algorithms"); 
-		
+			
 		while (inprogress == true) {
 	        System.out.println("Press 1 to play a game of chess");
 	        System.out.println("Press 0 to discontinue The Island");
