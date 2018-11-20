@@ -17,14 +17,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import chess.Chessboard;
+import chess.Game;
 
 public class ChessGUI extends JFrame implements ActionListener {
 	
 	public JFrame newframe;
-	private Chessboard board;
+	private Game game;
 	
-	public ChessGUI(Chessboard board) {
-        super("Client GUI");
+	public ChessGUI(Game game) {
+		super("Client GUI");
+        this.game = game;
         buildGUI();
         addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
@@ -55,11 +57,18 @@ public class ChessGUI extends JFrame implements ActionListener {
        		button.addActionListener(this);
        		Color color = new Color(255,255,255);
        		button.setBackground(color);
-       		
-       		// Add text to button
-       		button.setText(this.board.getBoard()[i].getPiece());
-       		
-       		
+
+       		try {
+           		// Add text to button
+           		if (this.game.getBoard().getBoard()[1].getPiece() != null) {
+           			button.setText(this.game.getBoard().getBoard()[i].getPiece());
+           		} else {
+           			button.setText("");
+           		}
+       		} catch(Exception e) {
+       			button.setText("");
+       		}
+
        		p3.add(button);
 			p3.getComponent(i).setPreferredSize(d);
 			p3.getComponent(i).setEnabled(true);
@@ -77,9 +86,12 @@ public class ChessGUI extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		JButton button = (JButton) arg0.getSource();	
+		JButton button = (JButton) arg0.getSource();
+		
+		// TODO - get coordinate and keep square selected
+		
+		// TODO - in case of second square selected, get coordinates and make move
 		
 			
 	}
-
 }

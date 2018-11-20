@@ -8,12 +8,9 @@ import gui.ChessGUI;
  *
  */
 public class ChessStart {
-	public static void main(String[] args) {
-			
-				
+	public static void main(String[] args) {				
     	Game game = new Game();
     	game.start();
-    	ChessGUI gui = new ChessGUI(game.getBoard());
     	
     }
 }

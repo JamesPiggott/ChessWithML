@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import gui.ChessGUI;
+
 public class Game {
 	
 	boolean inprogress;
@@ -101,9 +103,10 @@ public class Game {
 	}
 	
 	private void playGame() {
+		
 		System.out.println("The first move is for player " + player1.name + ". Who will play for White");
 		this.nextPlayer = player1;
-		
+		ChessGUI gui = new ChessGUI(this);
 		while (inprogress) {
 			board.showBoard();
 			
