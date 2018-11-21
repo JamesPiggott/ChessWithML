@@ -76,44 +76,58 @@ public class Chessboard {
 		
 	}
 	
-	public boolean performMove(String move, Player player) {
-		
+	public boolean performMove(String move, Player player, boolean useGUI) {
+				
 		char first;
 		char second;
 		char third;
 		char fourth;
 		
-		if (move.length() != 5) {
-			return false;
-		} else {
+		int firstPosition = 0;
+		int thirdPosition = 0;
+		
+		if (useGUI == true) {
 			first = move.charAt(0);
 			second = move.charAt(1);
-			third = move.charAt(3);
-			fourth = move.charAt(4);
-			
-			System.out.println("Values: " + first + " " + second);
-			System.out.println("Values: " + third + " " + fourth);
-			
-			int sec = Integer.parseInt("" + second);
-			int fou = Integer.parseInt("" + fourth);
-			
-			if (!(sec >= 1 && sec <= 8 && fou >= 1 && fou <= 8)) {
-				 return false;
-			}
-			
-			if (!(first == 'a' || first == 'b' || first == 'c' || first == 'd' || first == 'e' || first == 'f' || first == 'g' || first == 'h')) {
+		} else {
+		
+			if (move.length() != 5) {
 				return false;
+			} else {
+				first = move.charAt(0);
+				second = move.charAt(1);
+				third = move.charAt(3);
+				fourth = move.charAt(4);
+				
+				System.out.println("Values: " + first + " " + second);
+				System.out.println("Values: " + third + " " + fourth);
+				
+				int sec = Integer.parseInt("" + second);
+				int fou = Integer.parseInt("" + fourth);
+				
+				if (!(sec >= 1 && sec <= 8 && fou >= 1 && fou <= 8)) {
+					 return false;
+				}
+				
+				if (!(first == 'a' || first == 'b' || first == 'c' || first == 'd' || first == 'e' || first == 'f' || first == 'g' || first == 'h')) {
+					return false;
+				}
+				
+				if (!(third == 'a' || third == 'b' || third == 'c' || third == 'd' || third == 'e' || third == 'f' || third == 'g' || third == 'h')) {
+					return false;
+				}
 			}
-			
-			if (!(third == 'a' || third == 'b' || third == 'c' || third == 'd' || third == 'e' || third == 'f' || third == 'g' || third == 'h')) {
-				return false;
-			}
+			firstPosition = getPosition(first) + ((Integer.parseInt("" + second)-1) * 8) - 1;
+			thirdPosition = getPosition(third) + ((Integer.parseInt("" + fourth)-1) * 8) - 1;
+			System.out.println("Coordinate 1 is: " + firstPosition);
+			System.out.println("Coordinate 2 is: " + thirdPosition);
 		}
 		
-		int firstPosition = getPosition(first) + ((Integer.parseInt("" + second)-1) * 8) - 1;
-		int thirdPosition = getPosition(third) + ((Integer.parseInt("" + fourth)-1) * 8) - 1;
-		System.out.println("Coordinate 1 is: " + firstPosition);
-		System.out.println("Coordinate 2 is: " + thirdPosition);
+		if (useGUI == true) {
+			firstPosition = first;
+			thirdPosition = second;
+		}
+
 		
 		Pieces from = getBoard()[firstPosition];
 		Pieces to = getBoard()[thirdPosition];

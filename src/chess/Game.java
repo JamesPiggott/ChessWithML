@@ -100,6 +100,10 @@ public class Game {
 		return this.board;
 	}
 	
+	public Player getNextPlayer() {
+		return this.nextPlayer;
+	}
+	
 	private void playGame() {
 		
 		System.out.println("The first move is for player " + player1.name + ". Who will play for White");
@@ -122,7 +126,7 @@ public class Game {
 		            String capture = br.readLine();
 		            
 		            String move = piece + " " + capture;
-		            moveinprogress = board.performMove(move.toLowerCase(), this.nextPlayer);
+		            moveinprogress = board.performMove(move.toLowerCase(), this.nextPlayer, false);
 		            
 		            if (moveinprogress) {
 		            	System.out.println("The move was not valid. Please check your coordinates");

@@ -23,6 +23,9 @@ public class ChessGUI extends JFrame implements ActionListener {
 	
 	public JFrame newframe;
 	private Game game;
+	private boolean squareSelected;
+	private String firstSquare;
+	private String secondSquare;
 	
 	public ChessGUI(Game game) {
 		super("Client GUI");
@@ -68,25 +71,38 @@ public class ChessGUI extends JFrame implements ActionListener {
        		} catch(Exception e) {
        			button.setText("");
        		}
-
+       		button.setName(i + "");
        		p3.add(button);
 			p3.getComponent(i).setPreferredSize(d);
 			p3.getComponent(i).setEnabled(true);
 		}
        	p1.add(p3, BorderLayout.CENTER);
        	
-       	
         this.newframe = new JFrame();
         this.newframe.add(cc);
         this.newframe.setVisible(true);
         this.newframe.setSize(750, 650);
-        
-	
+        squareSelected = false;
+     
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		JButton button = (JButton) arg0.getSource();
+		
+		if (squareSelected == false) {
+			firstSquare = button.getName();
+			squareSelected = true;
+			button.setEnabled(false);
+		} else {
+			secondSquare = button.getName();
+			
+			System.out.println("From: " + firstSquare + " to: " + secondSquare);
+			
+			game.getBoard().performMove(firstSquare + secondSquare, game.getNextPlayer(), true);
+		}
+		
+		
 		
 		// TODO - get coordinate and keep square selected
 		
