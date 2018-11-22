@@ -108,8 +108,9 @@ public class Game {
 		
 		System.out.println("The first move is for player " + player1.name + ". Who will play for White");
 		this.nextPlayer = player1;
-		ChessGUI gui = new ChessGUI(this);
+		
 		while (inprogress) {
+			ChessGUI gui = new ChessGUI(this);
 			board.showBoard();
 			
 			System.out.println(nextPlayer.name + ". What is your next move?");

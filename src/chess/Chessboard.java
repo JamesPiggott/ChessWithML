@@ -76,6 +76,38 @@ public class Chessboard {
 		
 	}
 	
+	public boolean performMove(String moveFrom, String moveTo, Player player) {
+		
+		int fromPosition = Integer.parseInt(moveFrom);
+		int toPosition = Integer.parseInt(moveTo);;
+		
+		Pieces from = getBoard()[fromPosition];
+		Pieces to = getBoard()[toPosition];
+		
+		if (!from.checkMoveforCorrectness(fromPosition, toPosition)) {
+			System.out.println("This is not an authorized move!");
+			
+			return true;
+		}
+		
+		
+		if (from.getColour() == player.getColour()) {
+			if (to.equals(Empty.class)) {
+				System.out.println("Same colour");
+				getBoard()[fromPosition] = to;
+				getBoard()[toPosition] = from;
+			} else {
+				System.out.println("Not the same colour");
+				getBoard()[fromPosition] = new Empty();
+				getBoard()[toPosition] = from;
+			}
+		} else {
+			return false;
+		}
+		return false;
+	}
+	
+	
 	public boolean performMove(String move, Player player, boolean useGUI) {
 				
 		char first;
@@ -87,9 +119,10 @@ public class Chessboard {
 		int thirdPosition = 0;
 		
 		if (useGUI == true) {
-			first = move.charAt(0);
-			second = move.charAt(1);
-		} else {
+			
+			firstPosition = Integer.parseInt(move.substring(0, 2));
+			thirdPosition = Integer.parseInt(move.substring(2, 4));
+		} else { 
 		
 			if (move.length() != 5) {
 				return false;
@@ -122,12 +155,6 @@ public class Chessboard {
 			System.out.println("Coordinate 1 is: " + firstPosition);
 			System.out.println("Coordinate 2 is: " + thirdPosition);
 		}
-		
-		if (useGUI == true) {
-			firstPosition = first;
-			thirdPosition = second;
-		}
-
 		
 		Pieces from = getBoard()[firstPosition];
 		Pieces to = getBoard()[thirdPosition];

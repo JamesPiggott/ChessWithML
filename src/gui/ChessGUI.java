@@ -26,6 +26,7 @@ public class ChessGUI extends JFrame implements ActionListener {
 	private boolean squareSelected;
 	private String firstSquare;
 	private String secondSquare;
+	private JButton firstMove;
 	
 	public ChessGUI(Game game) {
 		super("Client GUI");
@@ -54,8 +55,30 @@ public class ChessGUI extends JFrame implements ActionListener {
               
         
        	p3.setLayout(new GridLayout(8,8));
-		Dimension d = new Dimension(65, 65);
-       	for (int i = 0; i <= 63; i = i+1) {
+		
+		
+		addGridBag(p3, 56, 63);
+		addGridBag(p3, 48, 55);
+		addGridBag(p3, 40, 47);
+		addGridBag(p3, 32, 39);
+		addGridBag(p3, 24, 31);
+		addGridBag(p3, 16, 23);
+		addGridBag(p3, 8, 15);
+		addGridBag(p3, 0, 7);
+		
+       	p1.add(p3, BorderLayout.CENTER);
+       	
+        this.newframe = new JFrame();
+        this.newframe.add(cc);
+        this.newframe.setVisible(true);
+        this.newframe.setSize(900, 900);
+        squareSelected = false;
+     
+	}
+	
+	public void addGridBag(JPanel panel, int start, int end) {
+		Dimension d = new Dimension(100, 100);
+       	for (int i = start; i <= end; i = i+1) {
        		JButton button = new JButton();
        		button.addActionListener(this);
        		Color color = new Color(255,255,255);
@@ -72,18 +95,11 @@ public class ChessGUI extends JFrame implements ActionListener {
        			button.setText("");
        		}
        		button.setName(i + "");
-       		p3.add(button);
-			p3.getComponent(i).setPreferredSize(d);
-			p3.getComponent(i).setEnabled(true);
+       		panel.add(button);
+       		button.setPreferredSize(d);
+       		button.setEnabled(true);
+
 		}
-       	p1.add(p3, BorderLayout.CENTER);
-       	
-        this.newframe = new JFrame();
-        this.newframe.add(cc);
-        this.newframe.setVisible(true);
-        this.newframe.setSize(750, 650);
-        squareSelected = false;
-     
 	}
 
 	@Override
@@ -94,19 +110,20 @@ public class ChessGUI extends JFrame implements ActionListener {
 			firstSquare = button.getName();
 			squareSelected = true;
 			button.setEnabled(false);
+			firstMove = button;
 		} else {
 			secondSquare = button.getName();
 			
 			System.out.println("From: " + firstSquare + " to: " + secondSquare);
 			
-			game.getBoard().performMove(firstSquare + secondSquare, game.getNextPlayer(), true);
+			game.getBoard().performMove(firstSquare, secondSquare, game.getNextPlayer());
+			firstMove.setEnabled(true);
+			
+			squareSelected = false;
+			firstSquare = "";
+			secondSquare = "";
+			game.getBoard().showBoard();
 		}
-		
-		
-		
-		// TODO - get coordinate and keep square selected
-		
-		// TODO - in case of second square selected, get coordinates and make move
 		
 			
 	}
