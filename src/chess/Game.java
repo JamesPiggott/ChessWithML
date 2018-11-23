@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import gui.ChessGUI;
+import gui.StartGUI;
 
 public class Game {
 	
@@ -25,6 +26,11 @@ public class Game {
 	public void start() {
 			
 		while (inprogress == true) {
+			
+			// Create pop-up GUI asking for details about what the player wants to do.
+			// Ensure there are sensible defaults
+			StartGUI start = new StartGUI();
+			
 	        System.out.println("Press 1 to play a game of chess");
 	        System.out.println("Press 0 to discontinue The Island");
 	        String gamechoice = "";
@@ -105,25 +111,20 @@ public class Game {
 	}
 	
 	private void playGame() {
-		
-		System.out.println("The first move is for player " + player1.name + ". Who will play for White");
+
 		this.nextPlayer = player1;
 		
 		while (inprogress) {
 			ChessGUI gui = new ChessGUI(this);
 			board.showBoard();
-			
-			System.out.println(nextPlayer.name + ". What is your next move?");
-			
+	
 
 			try {
 				boolean moveinprogress = true;
 				while (moveinprogress) {
-				
-					System.out.println("Select square from which to move your piece");
+
 		            String piece = br.readLine();
-		                       	            
-		            System.out.println("Select square to capture with your piece");
+
 		            String capture = br.readLine();
 		            
 		            String move = piece + " " + capture;
@@ -132,26 +133,30 @@ public class Game {
 		            if (moveinprogress) {
 		            	System.out.println("The move was not valid. Please check your coordinates");
 		            }
-	            
+
 				}
 	            
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println("A move has been made!");
-			if (this.board.checkForCheckMate() == true) {
-				System.out.println("It is check mate!");
-				this.inprogress = false;
-			} else {
-				this.inprogress = true;
-			}
-				
-			
-			if (this.nextPlayer == player1) {
-				this.nextPlayer = player2;
-			} else {
-				this.nextPlayer = player1;
-			}
+
+		}
+	}
+	
+	public void checkForMate() {
+		if (this.board.checkForCheckMate() == true) {
+			System.out.println("It is check mate!");
+			this.inprogress = false;
+		} else {
+			this.inprogress = true;
+		}
+	}
+	
+	public void assignNextPlayer() {
+		if (this.nextPlayer == player1) {
+			this.nextPlayer = player2;
+		} else {
+			this.nextPlayer = player1;
 		}
 	}
 }

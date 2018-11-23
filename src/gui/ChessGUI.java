@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,9 +28,10 @@ public class ChessGUI extends JFrame implements ActionListener {
 	private String firstSquare;
 	private String secondSquare;
 	private JButton firstMove;
+	private JPanel p3;
 	
 	public ChessGUI(Game game) {
-		super("Client GUI");
+		super("Chess board GUI");
         this.game = game;
         buildGUI();
         addWindowListener(new WindowAdapter() {
@@ -47,15 +49,13 @@ public class ChessGUI extends JFrame implements ActionListener {
         setSize(650,550);
 
         JPanel p1 = new JPanel(new BorderLayout());
-        JPanel p3 = new JPanel();
+        this.p3 = new JPanel();
         
         Container cc = getContentPane();
         cc.setLayout(new FlowLayout());
         cc.add(p1, BorderLayout.NORTH); 
               
-        
        	p3.setLayout(new GridLayout(8,8));
-		
 		
 		addGridBag(p3, 56, 63);
 		addGridBag(p3, 48, 55);
@@ -72,8 +72,7 @@ public class ChessGUI extends JFrame implements ActionListener {
         this.newframe.add(cc);
         this.newframe.setVisible(true);
         this.newframe.setSize(900, 900);
-        squareSelected = false;
-     
+        squareSelected = false;    
 	}
 	
 	public void addGridBag(JPanel panel, int start, int end) {
@@ -85,7 +84,6 @@ public class ChessGUI extends JFrame implements ActionListener {
        		button.setBackground(color);
 
        		try {
-           		// Add text to button
            		if (this.game.getBoard().getBoard()[1].getPiece() != null) {
            			button.setText(this.game.getBoard().getBoard()[i].getPiece());
            		} else {
@@ -98,9 +96,28 @@ public class ChessGUI extends JFrame implements ActionListener {
        		panel.add(button);
        		button.setPreferredSize(d);
        		button.setEnabled(true);
-
 		}
 	}
+	
+	public void updateScreen() {
+		
+		updateGridBag(this.p3, 56, 63, 0, 7);
+		updateGridBag(this.p3, 48, 55, 8, 15);
+		updateGridBag(this.p3, 40, 47, 16, 23);
+		updateGridBag(this.p3, 32, 39, 24, 31);
+		updateGridBag(this.p3, 24, 31, 32, 39);
+		updateGridBag(this.p3, 16, 23, 40, 47);
+		updateGridBag(this.p3, 8, 15, 48, 55);
+		updateGridBag(this.p3, 0, 7, 56, 63);
+	}
+	
+	public void updateGridBag(Component panel, int start, int end, int startboard, int endboard) {
+		for (int i = start; i <= end; i = i+1) {
+   			((AbstractButton) this.p3.getComponent(i)).setText(this.game.getBoard().getBoard()[startboard].getPiece());
+   			startboard++;
+		}
+	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -112,19 +129,16 @@ public class ChessGUI extends JFrame implements ActionListener {
 			button.setEnabled(false);
 			firstMove = button;
 		} else {
-			secondSquare = button.getName();
-			
-			System.out.println("From: " + firstSquare + " to: " + secondSquare);
-			
+			secondSquare = button.getName();	
 			game.getBoard().performMove(firstSquare, secondSquare, game.getNextPlayer());
 			firstMove.setEnabled(true);
 			
 			squareSelected = false;
 			firstSquare = "";
 			secondSquare = "";
-			game.getBoard().showBoard();
+			game.checkForMate();
+			game.assignNextPlayer();
 		}
-		
-			
+		updateScreen();
 	}
 }
