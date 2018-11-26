@@ -15,16 +15,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import chess.Game;
+
 public class StartGUI extends JFrame implements ActionListener {
 	
 	private JButton     startGame;
 	private JTextField 	tfnumberOfPlayers;
 	private JTextField 	tfPlayer1;
 	private JTextField 	tfPlayer2;
+	private Game 		game;
 	
-	
-	public StartGUI() {
+	public StartGUI(Game game) {
 		super("Start GUI");
+		this.game = game;
         buildGUI();
         setVisible(true);
         addWindowListener(new WindowAdapter() {
@@ -66,10 +69,10 @@ public class StartGUI extends JFrame implements ActionListener {
 
         startGame = new JButton("Start chess game");
         startGame.addActionListener(this);
-        startGame.setEnabled(false);
+        startGame.setEnabled(true);
         
-        p1.add(pp, BorderLayout.WEST);
-        p1.add(startGame, BorderLayout.EAST);
+        p1.add(pp, BorderLayout.NORTH);
+        p1.add(startGame, BorderLayout.SOUTH);
         
         Container cc = getContentPane();
         cc.setLayout(new FlowLayout());
@@ -78,6 +81,23 @@ public class StartGUI extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		String numberOfPlayers = tfnumberOfPlayers.getText();
+		String namePlayerOne = "";
+		String namePlayerTwo = "";
+		
+		if (numberOfPlayers.equals("0")) {
+			namePlayerOne = tfPlayer1.getText();
+			namePlayerTwo = tfPlayer2.getText();
+		}
+		if (numberOfPlayers.equals("1")) {
+			namePlayerOne = tfPlayer1.getText();
+			namePlayerTwo = tfPlayer2.getText();
+		}
+		if (numberOfPlayers.equals("2")) {
+			namePlayerOne = tfPlayer1.getText();
+			namePlayerTwo = tfPlayer2.getText();
+		}
+		game.createPlayers(Integer.parseInt(numberOfPlayers), namePlayerOne, namePlayerTwo);
+//		dispose(); 
 	}
 }

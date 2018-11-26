@@ -9,6 +9,7 @@ import gui.StartGUI;
 
 public class Game {
 	
+	boolean gameBeingSetup;
 	boolean inprogress;
     int playernumber;
     BufferedReader br;
@@ -21,81 +22,47 @@ public class Game {
     public Game() {
         this.br = new BufferedReader(new InputStreamReader(System.in));
         this.inprogress = true;
+        this.gameBeingSetup = true;
     }
 
 	public void start() {
 			
 		while (inprogress == true) {
-			
-			// Create pop-up GUI asking for details about what the player wants to do.
-			// Ensure there are sensible defaults
-			StartGUI start = new StartGUI();
-			
-	        System.out.println("Press 1 to play a game of chess");
-	        System.out.println("Press 0 to discontinue The Island");
-	        String gamechoice = "";
-		        
-	        try {
-	        	gamechoice = br.readLine();
-	         } catch (IOException ioe) {
-	            System.out.println("IO error trying to read your input!");
-	            System.exit(1);
-	         }
-	        if (gamechoice.equals("1")) {
-	        	this.createPlayers();
-	        	this.createBoard();
-	        	this.playGame();
-	        } else if (gamechoice.equals("0")) {
-	        	System.out.println("The Islands will now discontinue");
-	        	System.exit(0);
-	        }
+
+			StartGUI start = new StartGUI(this);
+			while (gameBeingSetup == true) {
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			this.createBoard();
+	        this.playGame();
+
 		}
 	}
 
-	private void createPlayers() {
-        System.out.println("Select number of players (0, 1 or 2): ");
-        try {
-			this.playernumber = Integer.parseInt(br.readLine());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void createPlayers(int numberOfPlayers, String playerOne, String playerTwo) {
+        this.playernumber = numberOfPlayers;
         if (this.playernumber == 2) {
         	this.player1 = new Player();
         	this.player2 = new Player();
-            System.out.println("Input name of player 1: White");
-            String name1 = "";
-			try {
-				name1 = br.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+
+            String name1 = playerOne;
             player1.setNameAndColour(name1, true);
-            System.out.println("Input name of player 2: Black");
-            String name2 = "";
-			try {
-				name2 = br.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+
+            String name2 = playerTwo;
             player2.setNameAndColour(name2, false);
             
         }
         if (this.playernumber == 1) {
         	this.player1 = new Player();
-            System.out.println("Which side do you choose to play? Black or White");
-            
-            
-            System.out.println("Input your name");
-            String name1 = "";
-			try {
-				name1 = br.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+            String name1 = playerOne;
             player1.setNameAndColour(name1, true);
-        } else {
-            System.out.println("Both opponents will play as A.I.");
-        }
+        } 
+        this.gameBeingSetup = false;
 	}
 	
 	private void createBoard() {

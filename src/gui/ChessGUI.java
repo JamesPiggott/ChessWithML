@@ -46,6 +46,7 @@ public class ChessGUI extends JFrame implements ActionListener {
 	}
 
 	private void buildGUI() {
+
         setSize(650,550);
 
         JPanel p1 = new JPanel(new BorderLayout());
@@ -65,14 +66,15 @@ public class ChessGUI extends JFrame implements ActionListener {
 		addGridBag(p3, 16, 23);
 		addGridBag(p3, 8, 15);
 		addGridBag(p3, 0, 7);
-		
+
        	p1.add(p3, BorderLayout.CENTER);
        	
         this.newframe = new JFrame();
         this.newframe.add(cc);
         this.newframe.setVisible(true);
         this.newframe.setSize(900, 900);
-        squareSelected = false;    
+        squareSelected = false;   
+
 	}
 	
 	public void addGridBag(JPanel panel, int start, int end) {
@@ -100,7 +102,6 @@ public class ChessGUI extends JFrame implements ActionListener {
 	}
 	
 	public void updateScreen() {
-		
 		updateGridBag(this.p3, 56, 63, 0, 7);
 		updateGridBag(this.p3, 48, 55, 8, 15);
 		updateGridBag(this.p3, 40, 47, 16, 23);
