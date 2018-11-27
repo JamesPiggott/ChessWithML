@@ -46,7 +46,6 @@ public class ChessGUI extends JFrame implements ActionListener {
 	}
 
 	private void buildGUI() {
-
         setSize(650,550);
 
         JPanel p1 = new JPanel(new BorderLayout());
@@ -74,7 +73,6 @@ public class ChessGUI extends JFrame implements ActionListener {
         this.newframe.setVisible(true);
         this.newframe.setSize(900, 900);
         squareSelected = false;   
-
 	}
 	
 	public void addGridBag(JPanel panel, int start, int end) {
@@ -82,11 +80,22 @@ public class ChessGUI extends JFrame implements ActionListener {
        	for (int i = start; i <= end; i = i+1) {
        		JButton button = new JButton();
        		button.addActionListener(this);
-       		Color color = new Color(255,255,255);
+       		
+       		Color color ;
+       		Color text = new Color(255,255,255);
+       		
+       		if (this.game.getBoard().getBoard()[i].getColour() == true) {
+       			color = new Color(255,255,255);      			
+       			
+       		} else {
+       			color = new Color(0,0,0);
+       			button.setForeground(text);
+       		}
+
        		button.setBackground(color);
 
        		try {
-           		if (this.game.getBoard().getBoard()[1].getPiece() != null) {
+           		if (this.game.getBoard().getBoard()[i].getPiece() != null) {
            			button.setText(this.game.getBoard().getBoard()[i].getPiece());
            		} else {
            			button.setText("");
@@ -97,6 +106,7 @@ public class ChessGUI extends JFrame implements ActionListener {
        		button.setName(i + "");
        		panel.add(button);
        		button.setPreferredSize(d);
+       		
        		button.setEnabled(true);
 		}
 	}
@@ -114,7 +124,19 @@ public class ChessGUI extends JFrame implements ActionListener {
 	
 	public void updateGridBag(Component panel, int start, int end, int startboard, int endboard) {
 		for (int i = start; i <= end; i = i+1) {
-   			((AbstractButton) this.p3.getComponent(i)).setText(this.game.getBoard().getBoard()[startboard].getPiece());
+   			((AbstractButton) this.p3.getComponent(i)).setText(this.game.getBoard().getBoard()[startboard].getPiece());		
+   			
+       		Color color ;
+       		Color text = new Color(255,255,255);
+       		
+       		if (this.game.getBoard().getBoard()[startboard].getColour() == true) {
+       			color = new Color(255,255,255);      			
+       			
+       		} else {
+       			color = new Color(0,0,0);
+       			((AbstractButton) this.p3.getComponent(i)).setForeground(text);
+       		}
+       		((AbstractButton) this.p3.getComponent(i)).setBackground(color);
    			startboard++;
 		}
 	}

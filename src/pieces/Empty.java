@@ -16,7 +16,7 @@ public class Empty implements Pieces {
 
 	public boolean getColour() {
 
-		return false;
+		return true;
 	}
 
 	@Override

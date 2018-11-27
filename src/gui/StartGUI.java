@@ -49,7 +49,7 @@ public class StartGUI extends JFrame implements ActionListener {
         JPanel pp = new JPanel(new GridLayout(2,2));
 
         JLabel numberOfPlayers = new JLabel("# of players: ");
-        tfnumberOfPlayers = new JTextField("", 12);
+        tfnumberOfPlayers = new JTextField("2", 12);
         tfnumberOfPlayers.setEditable(true);
         
         JLabel lbPlayer1 = new JLabel("Player 1: ");
