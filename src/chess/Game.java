@@ -80,32 +80,11 @@ public class Game {
 	private void playGame() {
 
 		this.nextPlayer = player1;
-		
+		ChessGUI gui = new ChessGUI(this);
 		while (inprogress) {
-			ChessGUI gui = new ChessGUI(this);
+			
 			board.showBoard();
 	
-
-			try {
-				boolean moveinprogress = true;
-				while (moveinprogress) {
-
-		            String piece = br.readLine();
-
-		            String capture = br.readLine();
-		            
-		            String move = piece + " " + capture;
-		            moveinprogress = board.performMove(move.toLowerCase(), this.nextPlayer, false);
-		            
-		            if (moveinprogress) {
-		            	System.out.println("The move was not valid. Please check your coordinates");
-		            }
-
-				}
-	            
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 
 		}
 	}

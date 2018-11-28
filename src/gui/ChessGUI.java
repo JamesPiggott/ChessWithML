@@ -126,17 +126,19 @@ public class ChessGUI extends JFrame implements ActionListener {
 		for (int i = start; i <= end; i = i+1) {
    			((AbstractButton) this.p3.getComponent(i)).setText(this.game.getBoard().getBoard()[startboard].getPiece());		
    			
-       		Color color ;
-       		Color text = new Color(255,255,255);
+       		Color colorWhite = new Color(255,255,255);
+       		Color colorBlack = new Color(0,0,0);
        		
+       		// Set white chess piece
        		if (this.game.getBoard().getBoard()[startboard].getColour() == true) {
-       			color = new Color(255,255,255);      			
+       			((AbstractButton) this.p3.getComponent(i)).setBackground(colorWhite);   
+       			((AbstractButton) this.p3.getComponent(i)).setForeground(colorBlack);
        			
+       		// Set black chess piece
        		} else {
-       			color = new Color(0,0,0);
-       			((AbstractButton) this.p3.getComponent(i)).setForeground(text);
+           		((AbstractButton) this.p3.getComponent(i)).setBackground(colorBlack);
+       			((AbstractButton) this.p3.getComponent(i)).setForeground(colorWhite);
        		}
-       		((AbstractButton) this.p3.getComponent(i)).setBackground(color);
    			startboard++;
 		}
 	}
@@ -149,10 +151,9 @@ public class ChessGUI extends JFrame implements ActionListener {
 		if (squareSelected == false) {
 			firstSquare = button.getName();
 			squareSelected = true;
-			button.setEnabled(false);
 			firstMove = button;
 		} else {
-			secondSquare = button.getName();	
+			secondSquare = button.getName();
 			game.getBoard().performMove(firstSquare, secondSquare, game.getNextPlayer());
 			firstMove.setEnabled(true);
 			

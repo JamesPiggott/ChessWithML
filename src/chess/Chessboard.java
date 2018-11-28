@@ -90,135 +90,34 @@ public class Chessboard {
 			return true;
 		}
 		
-		
+		// Swap the pieces on the board according to the rules.
 		if (from.getColour() == player.getColour()) {
-			if (to.equals(Empty.class)) {
-				System.out.println("Same colour");
-				getBoard()[fromPosition] = to;
+			
+			// option 1 - change position with an Empty piece
+			if (to.getPiece().equals("      ")) {
+				System.out.println("Moving to an empty square");
+				getBoard()[fromPosition] = new Empty();
 				getBoard()[toPosition] = from;
-			} else {
-				System.out.println("Not the same colour");
+				
+			// option 2 - change position with an Enemy piece
+			} else if (from.getColour() != to.getColour()) {
+				System.out.println("Moving to an enemy square");
 				getBoard()[fromPosition] = new Empty();
 				getBoard()[toPosition] = from;
 			}
+
 		} else {
 			return false;
 		}
 		return false;
 	}
-	
-	
-	public boolean performMove(String move, Player player, boolean useGUI) {
-				
-		char first;
-		char second;
-		char third;
-		char fourth;
-		
-		int firstPosition = 0;
-		int thirdPosition = 0;
-		
-		if (useGUI == true) {
-			
-			firstPosition = Integer.parseInt(move.substring(0, 2));
-			thirdPosition = Integer.parseInt(move.substring(2, 4));
-		} else { 
-		
-			if (move.length() != 5) {
-				return false;
-			} else {
-				first = move.charAt(0);
-				second = move.charAt(1);
-				third = move.charAt(3);
-				fourth = move.charAt(4);
-				
-				System.out.println("Values: " + first + " " + second);
-				System.out.println("Values: " + third + " " + fourth);
-				
-				int sec = Integer.parseInt("" + second);
-				int fou = Integer.parseInt("" + fourth);
-				
-				if (!(sec >= 1 && sec <= 8 && fou >= 1 && fou <= 8)) {
-					 return false;
-				}
-				
-				if (!(first == 'a' || first == 'b' || first == 'c' || first == 'd' || first == 'e' || first == 'f' || first == 'g' || first == 'h')) {
-					return false;
-				}
-				
-				if (!(third == 'a' || third == 'b' || third == 'c' || third == 'd' || third == 'e' || third == 'f' || third == 'g' || third == 'h')) {
-					return false;
-				}
-			}
-			firstPosition = getPosition(first) + ((Integer.parseInt("" + second)-1) * 8) - 1;
-			thirdPosition = getPosition(third) + ((Integer.parseInt("" + fourth)-1) * 8) - 1;
-			System.out.println("Coordinate 1 is: " + firstPosition);
-			System.out.println("Coordinate 2 is: " + thirdPosition);
-		}
-		
-		Pieces from = getBoard()[firstPosition];
-		Pieces to = getBoard()[thirdPosition];
-		
-		if (!from.checkMoveforCorrectness(firstPosition, thirdPosition)) {
-			System.out.println("This is not an authorized move!");
-			
-			return true;
-		}
-		
-		
-		if (from.getColour() == player.getColour()) {
-			if (to.equals(Empty.class)) {
-				System.out.println("Same colour");
-				getBoard()[firstPosition] = to;
-				getBoard()[thirdPosition] = from;
-			} else {
-				System.out.println("Not the same colour");
-				getBoard()[firstPosition] = new Empty();
-				getBoard()[thirdPosition] = from;
-			}
-		} else {
-			return false;
-		}
-		return false;
-	}
-	
-	public int getPosition(char alphaposition) {
-		int position = 0;
-		switch (alphaposition) {
-			case 'a':
-			position = 1;
-			break;
-		case 'b':
-			position = 2;
-			break;
-		case 'c':
-			position = 3;
-			break;
-		case 'd':
-			position = 4;
-			break;
-		case 'e':
-			position = 5;
-			break;
-		case 'f':
-			position = 6;
-			break;
-		case 'g':
-			position = 7;
-			break;
-		case 'h':
-			position = 8;
-			break;
-		}
-		return position;
-	}
+
 			
 	public void boardRules() {
 		
 	}
 
 	public boolean checkForCheckMate() {
-
 		return false;
 	}
 

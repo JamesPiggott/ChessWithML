@@ -46,7 +46,7 @@ public class StartGUI extends JFrame implements ActionListener {
 		setResizable(false);
 		
         JPanel p1 = new JPanel(new FlowLayout());
-        JPanel pp = new JPanel(new GridLayout(2,2));
+        JPanel pp = new JPanel(new GridLayout(3,2));
 
         JLabel numberOfPlayers = new JLabel("# of players: ");
         tfnumberOfPlayers = new JTextField("2", 12);
@@ -98,6 +98,5 @@ public class StartGUI extends JFrame implements ActionListener {
 			namePlayerTwo = tfPlayer2.getText();
 		}
 		game.createPlayers(Integer.parseInt(numberOfPlayers), namePlayerOne, namePlayerTwo);
-//		dispose(); 
 	}
 }
