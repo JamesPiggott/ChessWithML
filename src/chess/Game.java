@@ -1,7 +1,6 @@
 package chess;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 import gui.ChessGUI;
@@ -34,7 +33,6 @@ public class Game {
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

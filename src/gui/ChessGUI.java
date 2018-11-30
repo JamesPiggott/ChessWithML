@@ -17,9 +17,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import chess.Chessboard;
 import chess.Game;
 
+@SuppressWarnings("serial")
 public class ChessGUI extends JFrame implements ActionListener {
 	
 	public JFrame newframe;
@@ -154,14 +154,22 @@ public class ChessGUI extends JFrame implements ActionListener {
 			firstMove = button;
 		} else {
 			secondSquare = button.getName();
-			game.getBoard().performMove(firstSquare, secondSquare, game.getNextPlayer());
-			firstMove.setEnabled(true);
+			boolean move = game.getBoard().performMove(firstSquare, secondSquare, game.getNextPlayer());
 			
-			squareSelected = false;
-			firstSquare = "";
-			secondSquare = "";
-			game.checkForMate();
-			game.assignNextPlayer();
+			if (move == false) {
+				firstMove.setEnabled(true);
+				squareSelected = false;
+				firstSquare = "";
+				secondSquare = "";
+				game.checkForMate();
+				game.assignNextPlayer();
+			} else {
+				firstSquare = "";
+				secondSquare = "";
+				squareSelected = false;
+			}
+			
+
 		}
 		updateScreen();
 	}

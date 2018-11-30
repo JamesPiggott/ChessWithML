@@ -1,7 +1,5 @@
 package chess;
 
-import gui.ChessGUI;
-
 /**
  * This class will start the game.
  * @author James Piggott - November 18th 2018

@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import chess.Game;
 
+@SuppressWarnings("serial")
 public class StartGUI extends JFrame implements ActionListener {
 	
 	private JButton     startGame;
