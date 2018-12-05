@@ -80,10 +80,7 @@ public class Game {
 		this.nextPlayer = player1;
 		ChessGUI gui = new ChessGUI(this);
 		while (inprogress) {
-			
 			board.showBoard();
-	
-
 		}
 	}
 	
